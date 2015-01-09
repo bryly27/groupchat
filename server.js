@@ -13,7 +13,7 @@ app.get('/', function(req, res){
 	res.render('index');
 })
 
-var server = app.listen(8000);
+var server = app.listen(8080);
 var server = app.listen(server);
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function(socket){
