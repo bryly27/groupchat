@@ -1,0 +1,62 @@
+.sign_in {
+	width: 250px;
+	height: 100px;
+	border: 1px solid black;
+	text-align: center;
+	margin-left: 350px;
+	margin-top: 200px;
+}
+
+#chatbox {
+	margin-left: 100px;
+	margin-top: 50px;
+}
+
+#chat {
+	width: 600px;
+	height: 400px;
+	border: 1px solid black;
+	overflow-y: auto;
+	line-height: 30%;
+	padding-left: 10px;
+	display: inline-block;
+}
+
+#users {
+	width: 200px;
+	height: 400px;
+	border: 1px solid black;
+	vertical-align: top;
+	display: inline-block;
+}
+
+#users h4 {
+	margin: 20px;
+	border-bottom: 1px solid black;
+}
+
+#user {
+	
+}
+
+#message {
+	width: 600px;
+	margin-top: 20px;
+}
+
+#submit {
+	display: block;
+	margin-left: 550px;
+}
+
+.new_user {
+	color: red;
+}
+
+.disconnecting {
+	color: grey;
+}
+
+.user {
+	color: blue;
+}

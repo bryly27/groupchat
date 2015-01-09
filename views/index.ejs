@@ -1,0 +1,82 @@
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+
+	 	$(document).ready(function(){
+	 		var socket = io.connect();
+	 		$('#chatbox').hide();
+
+	 		do{
+	 			var name = prompt('Please enter your name:');
+	 		} while (name.length <2);
+
+	 		socket.emit('new_name', name)
+
+	 		socket.on('show_chatbox', function(data){
+	 			$('#chatbox').fadeIn();
+	 		});
+
+	 		socket.on('update_chatbox', function(data){
+	 			console.log(data);
+	 			$('#chat').html('');
+	 			for(var i=0; i<data.length; i++){
+	 				if(data[i].new_user){
+	 					$('#chat').append("<p class='new_user'>"+data[i].new_user +"</p>");
+	 				} else if(data[i].name && data[i].name == name){
+	 					$('#chat').append("<p class='user'>"+data[i].name + ': ' + data[i].message + "</p>");
+	 				} else if(data[i].name){
+	 					$('#chat').append("<p>"+data[i].name + ': ' + data[i].message + "</p>");
+	 				} else {
+	 					$('#chat').append("<p class='disconnecting'>"+data[i].disconnecting+"</p>");
+	 				}
+	 			}
+	 				$('#chat').scrollTop(10000);
+	 		});
+
+	 		socket.on('display_users', function(data){
+	 			$('#user').html('');
+	 			for(var i=0; i<data.length; i++){
+	 				$('#user').append("<p>" + data[i] + "</p>");
+	 			}
+	 		})
+
+	 		$('#submit').click(function(){
+	 			event.preventDefault();
+	 			socket.emit('add_message', {name: name, message: $('#message').val()});
+	 			$('form')[0].reset();
+	 		});
+
+
+
+		
+	 	});
+
+	 </script>
+</head>
+<body>
+	<div id='chatbox'>
+		<div class='header'>
+			<h3>Conversation Board</h3>
+
+			<div id='chat'>
+			</div>
+
+			
+			<div id='users'>
+				<h4>Users logged in</h4>
+				<div id='user'>
+				</div>
+			</div>
+
+			<form>
+				<input id='message' type='text' placeholder='enter your message here'>
+				<input id='submit' type='submit' value='submit'>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
