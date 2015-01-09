@@ -14,6 +14,7 @@ app.get('/', function(req, res){
 })
 
 var server = app.listen(8000);
+var server = app.listen(server);
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function(socket){
 
